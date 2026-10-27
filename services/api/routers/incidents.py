@@ -34,8 +34,9 @@ def export_incidents_geojson(
     ]
 
     features = []
+    category_norm = category.strip().lower() if category else None
     for inc in sample_incidents:
-        if category and inc["category"] != category:
+        if category_norm and inc["category"].lower() != category_norm:
             continue
             
         features.append({
