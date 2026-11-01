@@ -7,6 +7,10 @@ from pydantic import BaseModel, Field
 class ObservationType(str, Enum):
     ENVIRONMENTAL = "environmental"
     THERMAL_STRESS = "thermal_stress"
+    ACOUSTIC = "acoustic"
+    SATELLITE = "satellite"
+    POLLUTION = "pollution"
+    VESSEL_TRACKING = "vessel_tracking"
     OIL_SLICK = "oil_slick"
     VESSEL_ANOMALY = "vessel_anomaly"
     CITIZEN_REPORT = "citizen_report"
