@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 from typing import Any, Dict, List
 from packages.ocean_data.base_adapter import BaseDataIngestionAdapter
+from packages.schemas.coral import CoralThermalStress
 from packages.schemas.observation import ObservationBase, ObservationType
 
 class NOAACoralBleachingAdapter(BaseDataIngestionAdapter):
@@ -39,6 +40,15 @@ class NOAACoralBleachingAdapter(BaseDataIngestionAdapter):
         Normalizes raw NOAA CRW telemetry to the unified ObservationBase schema.
         """
         obs_type = getattr(ObservationType, "THERMAL_STRESS", ObservationType.ENVIRONMENTAL)
+        reported_alert_level = raw_record.get("alert_level")
+        thermal_stress = CoralThermalStress(
+            dhw_degree_weeks=raw_record["dhw_degree_weeks"],
+            alert_level=(
+                reported_alert_level
+                if reported_alert_level is not None
+                else 0
+            ),
+        )
         
         return ObservationBase(
             source="NOAA Coral Reef Watch",
@@ -49,7 +59,7 @@ class NOAACoralBleachingAdapter(BaseDataIngestionAdapter):
             data={
                 "station_id": raw_record.get("station_id"),
                 "sst_celsius": raw_record.get("sst_celsius"),
-                "dhw_degree_weeks": raw_record.get("dhw_degree_weeks"),
-                "alert_level": raw_record.get("alert_level")
+                "dhw_degree_weeks": thermal_stress.dhw_degree_weeks,
+                "alert_level": thermal_stress.alert_level.value
             }
         )
