@@ -7,6 +7,7 @@ from packages.schemas.observation import ObservationBase
 class BaseDataIngestionAdapter(ABC):
     """
     Abstract base interface for all external ocean data ingestion adapters.
+    Provides standard contract for raw telemetry acquisition and standardized normalization.
     """
 
     @abstractmethod
@@ -17,7 +18,7 @@ class BaseDataIngestionAdapter(ABC):
         pass
 
     @abstractmethod
-    def normalize_record(self, raw_record: Dict[str, Any]) -> ObservationBase:
+    def normalize_record(self, raw_record: Dict[str, Any]) -> Any:
         """
         Normalize an external raw telemetry dictionary into the unified ObservationBase schema.
         """
