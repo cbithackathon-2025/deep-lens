@@ -1,0 +1,36 @@
+# Git
+.git
+.gitignore
+
+# Python virtual environments & bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+ENV/
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node / Web artifacts
+node_modules/
+dist/
+build/
+.npm/
+
+# Environment files with secrets
+.env
+*.local
+
+# IDE & Editor caches
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Temporary scratch & documentation
+scratch/
